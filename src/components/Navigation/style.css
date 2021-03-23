@@ -1,0 +1,10 @@
+.navigation {
+  display: flex;
+  align-items: center;
+  background: #222;
+}
+
+.navigation__item {
+  padding: 16px;
+  cursor: pointer;
+}

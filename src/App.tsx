@@ -1,26 +1,39 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, { useEffect, useState } from "react";
+import "./App.css";
+import { About } from "./components/About/About";
+import { Header } from "./components/Header/Header";
+import { Home } from "./components/Home/Home";
+import { Navigation } from "./components/Navigation/Navigation";
+import { SiteContent } from "./components/SiteContent/SiteContent";
+import { SiteLayout } from "./components/SiteLayout/SiteLayout";
 
-function App() {
+export const App = () => {
+  const [section, setSection] = useState(0);
+  const [counter, setCounter] = useState(0);
+
+  const onSectionChange = () => {
+    setCounter(counter + 1);
+  };
+
+  useEffect(onSectionChange, [section]);
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <SiteLayout
+        header={
+          <Header
+            title="Заголовок"
+            navigation={<Navigation onSelect={(value) => setSection(value)} />}
+          />
+        }
+        content={
+          <SiteContent>
+            Количество переходов: {counter}
+            {section === 0 && <Home />}
+            {section === 1 && <About />}
+          </SiteContent>
+        }
+      />
     </div>
   );
-}
-
-export default App;
+};
